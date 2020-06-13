@@ -13,7 +13,6 @@ namespace Gamers.Web.Controllers
         public ActionResult Index()
         {
             return View();
-
         }
         public ActionResult Suma() 
         {
@@ -21,11 +20,6 @@ namespace Gamers.Web.Controllers
             ViewData["Fecha"] = DateTime.Now.ToShortDateString();
             return View();
         }
-        [HttpPost]
-        public ActionResult Suma(int Num1, int Num2)
-        {
-            var cuenta = new Cuenta(Num1,Num2);   
-            return View(cuenta);
-        }
+        
     }
 }
