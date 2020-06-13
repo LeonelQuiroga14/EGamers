@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.29519.181
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gamers.Web", "Gamers.Web\Gamers.Web.csproj", "{D9DD09D3-51F4-4A70-B424-1834AB74295E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gamers.DataAccess", "Gamers.DataAccess\Gamers.DataAccess.csproj", "{17331DBF-DBA6-4A29-9FE7-54DE7E12CCCC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{D9DD09D3-51F4-4A70-B424-1834AB74295E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D9DD09D3-51F4-4A70-B424-1834AB74295E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D9DD09D3-51F4-4A70-B424-1834AB74295E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{17331DBF-DBA6-4A29-9FE7-54DE7E12CCCC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{17331DBF-DBA6-4A29-9FE7-54DE7E12CCCC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{17331DBF-DBA6-4A29-9FE7-54DE7E12CCCC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{17331DBF-DBA6-4A29-9FE7-54DE7E12CCCC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

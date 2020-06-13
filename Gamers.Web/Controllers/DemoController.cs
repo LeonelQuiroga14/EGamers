@@ -14,7 +14,7 @@ namespace Gamers.Web.Controllers
         {
             return View();
         }
-        public ActionResult Suma() 
+        public ActionResult Resta() 
         {
             ViewBag.Titulo    = "Leonel Quiroga aguante River";
             ViewData["Fecha"] = DateTime.Now.ToShortDateString();
