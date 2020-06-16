@@ -1,0 +1,62 @@
+﻿@model IEnumerable<Gamers.DataAccess.Models.Juego>
+
+@{
+    ViewBag.Title = "Index";
+}
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Nuevo juego", "Alta")
+</p>
+<table class="table table-dark table-hover">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.categoria.Descripcion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Nombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Descripcion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Requerimientos)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FechaLanzamiento)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Precio)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.categoria.Descripcion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Nombre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Descripcion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Requerimientos)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FechaLanzamiento)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Precio)
+        </td>
+        <td>
+            @Html.ActionLink("Modificar", "Modificacion", new { id=item.Id}, new {@class= "btn btn-warning" }) |
+            @Html.ActionLink("Borrar", "Baja", new { id=item.Id }, new { @class=" btn btn-danger " })
+        </td>
+    </tr>
+}
+
+</table>

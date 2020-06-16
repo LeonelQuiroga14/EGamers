@@ -92,6 +92,10 @@
     <Compile Include="Migrations\202006150014197_Agrego indice.designer.cs">
       <DependentUpon>202006150014197_Agrego indice.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202006152309458_Modificacion de la tabla juegos,primary key,max length y unique.cs" />
+    <Compile Include="Migrations\202006152309458_Modificacion de la tabla juegos,primary key,max length y unique.designer.cs">
+      <DependentUpon>202006152309458_Modificacion de la tabla juegos,primary key,max length y unique.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Categoria.cs" />
     <Compile Include="Models\Juego.cs" />
@@ -116,6 +120,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202006150014197_Agrego indice.resx">
       <DependentUpon>202006150014197_Agrego indice.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006152309458_Modificacion de la tabla juegos,primary key,max length y unique.resx">
+      <DependentUpon>202006152309458_Modificacion de la tabla juegos,primary key,max length y unique.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />
