@@ -24,11 +24,17 @@ namespace Gamers.DataAccess
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+
             #region Categoria
             modelBuilder.Entity<Categoria>().HasKey(x => x.Id)
                 .Property(x => x.Descripcion).IsRequired().HasColumnType("nvarchar").HasMaxLength(50)
            .HasColumnAnnotation(IndexAnnotation.AnnotationName, new IndexAnnotation(new IndexAttribute("IX_DescripcionUnica") {IsUnique=true}));
+            #endregion
 
+            #region Juego
+            modelBuilder.Entity<Juego>().HasKey(x=> x.Id)
+                .Property(x => x.Descripcion).IsRequired().HasColumnType("nvarchar").HasMaxLength(400)
+                .HasColumnAnnotation(IndexAnnotation.AnnotationName, new IndexAnnotation(new IndexAttribute("IX_DescripcionUnica") { IsUnique = true }));
             #endregion
         }
 
