@@ -1,4 +1,5 @@
-﻿using Gamers.DataAccess.Models;
+﻿using Gamers.DataAccess.Mappings;
+using Gamers.DataAccess.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -25,20 +26,18 @@ namespace Gamers.DataAccess
             base.OnModelCreating(modelBuilder);
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
 
-            #region Categoria
-            modelBuilder.Entity<Categoria>().HasKey(x => x.Id)
-                .Property(x => x.Descripcion).IsRequired().HasColumnType("nvarchar").HasMaxLength(50)
-           .HasColumnAnnotation(IndexAnnotation.AnnotationName, new IndexAnnotation(new IndexAttribute("IX_DescripcionUnica") {IsUnique=true}));
-            #endregion
-
+            modelBuilder.Configurations.Add(new CategoriaMapping());
+            modelBuilder.Configurations.Add(new JuegoMapping());
+            modelBuilder.Configurations.Add(new ImagenJuegoMapping());
             #region Juego
-            modelBuilder.Entity<Juego>().HasKey(x=> x.Id)
-                .Property(x => x.Descripcion).IsRequired().HasColumnType("nvarchar").HasMaxLength(400)
-                .HasColumnAnnotation(IndexAnnotation.AnnotationName, new IndexAnnotation(new IndexAttribute("IX_DescripcionUnica") { IsUnique = true }));
+            //modelBuilder.Entity<Juego>().HasKey(x=> x.Id)
+            //    .Property(x => x.Descripcion).IsRequired().HasColumnType("nvarchar").HasMaxLength(400)
+            //    .HasColumnAnnotation(IndexAnnotation.AnnotationName, new IndexAnnotation(new IndexAttribute("IX_DescripcionUnica") { IsUnique = true }));
             #endregion
         }
 
         public DbSet<Categoria> Categoria { get; set; }
         public DbSet<Juego> Juego { get; set; }
+        public DbSet<ImagenesJuego> ImagenesJuegos { get; set; }
     }
 }

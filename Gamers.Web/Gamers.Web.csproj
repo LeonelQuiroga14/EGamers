@@ -136,8 +136,10 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\CombosHelpers.cs" />
     <Compile Include="Models\Cliente.cs" />
     <Compile Include="Models\Cuenta.cs" />
+    <Compile Include="Models\ImagenViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\TableViewModel.cs" />
   </ItemGroup>
@@ -290,6 +292,7 @@
     <Content Include="Views\Juego\Alta.cshtml" />
     <Content Include="Views\Juego\Baja.cshtml" />
     <Content Include="Views\Juego\Modificacion.cshtml" />
+    <Content Include="Views\Juego\UploadImages.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
