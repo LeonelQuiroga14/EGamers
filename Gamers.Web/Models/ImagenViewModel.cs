@@ -11,6 +11,7 @@ namespace Gamers.Web.Models
         {
             Image = new List<HttpPostedFileBase>();
         }
+     
       public List<HttpPostedFileBase> Image { get; set; }
       public int JuegoId { get; set; }
     }

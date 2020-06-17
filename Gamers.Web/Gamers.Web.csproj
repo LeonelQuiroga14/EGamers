@@ -137,9 +137,11 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\CombosHelpers.cs" />
-    <Compile Include="Models\Cliente.cs" />
-    <Compile Include="Models\Cuenta.cs" />
+    <Compile Include="Models\CategoriaViewModel.cs" />
+    <Compile Include="Models\ClienteViewModel.cs" />
+    <Compile Include="Models\ImagenJuegoViewModel.cs" />
     <Compile Include="Models\ImagenViewModel.cs" />
+    <Compile Include="Models\JuegoViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\TableViewModel.cs" />
   </ItemGroup>

@@ -1,4 +1,4 @@
-﻿@model Gamers.DataAccess.Models.Juego
+﻿@model Gamers.Web.Models.JuegoViewModel
 
 @{
     ViewBag.Title = "Baja";
@@ -12,11 +12,11 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.categoria.Descripcion)
+            @Html.DisplayNameFor(model => model.Categoria.Descripcion)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.categoria.Descripcion)
+            @Html.DisplayFor(model => model.Categoria.Descripcion)
         </dd>
 
         <dt>
