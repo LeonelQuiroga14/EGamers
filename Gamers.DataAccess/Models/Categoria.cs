@@ -9,7 +9,11 @@ namespace Gamers.DataAccess.Models
 {
     
      public  class Categoria
-     {   
+     {
+        public Categoria()
+        {
+            Juegos = new List<Juego>();
+        }
         public int Id { get; set; }
 
         [Required(ErrorMessage = "El campo es obligatorio.")]
@@ -17,5 +21,8 @@ namespace Gamers.DataAccess.Models
         [Display(Name = "Nombre de categoria")]
         public string Descripcion { get; set; }      
         public int? EdadMinima { get; set; }
+
+        //representa la relacion una categoria muchos juegos 
+        public virtual List<Juego> Juegos { get; set; }
      }
 }

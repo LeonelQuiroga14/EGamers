@@ -1,8 +1,12 @@
 ﻿using Gamers.DataAccess;
 using Gamers.DataAccess.Models;
+using Gamers.Web.Helpers;
+using Gamers.Web.Models;
 using Gamers.Web.Services;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Web;
@@ -22,7 +26,9 @@ namespace Gamers.Web.Controllers
         // GET: Juego
         public ActionResult Index()
         {
-            var lista = _context.Juego.ToList();
+            //Include() eagerLoadin en EF por si queres googlear, lo que hace es cuando busca los juegos automaticamente te trae la relacion de categoria 
+            //en categoria pasa al revez te trae toda la lista de juegos
+            var lista = _context.Juego.Include(x=>x.Categoria).ToList();
             return View(lista);
         }
 
@@ -30,31 +36,32 @@ namespace Gamers.Web.Controllers
         public ActionResult Alta()
         {
 
-            List<TableViewModel> Lista =
-                (from c in _context.Categoria
-                 select new TableViewModel
-                 {
-                     Id = c.Id,
-                     Nombre = c.Descripcion
-                 }).ToList();
+            //List<TableViewModel> Lista =
+            //    (from c in _context.Categoria
+            //     select new TableViewModel
+            //     {
+            //         Id = c.Id,
+            //         Nombre = c.Descripcion
+            //     }).ToList();
 
-            List<SelectListItem> item = Lista.ConvertAll(t =>
-            {
-                return new SelectListItem()
-                {
-                    Text = t.Nombre.ToString(),
-                    Value = t.Id.ToString(),
-                    Selected = false
-                };
-            });
-
-            ViewBag.item = item;
+            //List<SelectListItem> item = Lista.ConvertAll(t =>
+            //{
+            //    return new SelectListItem()
+            //    {
+            //        Text = t.Nombre.ToString(),
+            //        Value = t.Id.ToString(),
+            //        Selected = false
+            //    };
+            //});
+            ViewBag.Categorias = new SelectList(CombosHelpers.GetCategorias(),"Id", "Descripcion");
+            
 
             return View();
         }
            
     
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Alta(Juego juego)
         {
             if (!ModelState.IsValid)
@@ -170,9 +177,60 @@ namespace Gamers.Web.Controllers
             }
             return RedirectToAction("Index");
         }
+        [HttpGet]
+        public ActionResult UploadImages()
+        {
+            var juegos = new SelectList(CombosHelpers.GetJuegos(), "Id", "Nombre");
+            ViewBag.JuegoId = juegos;
+            return View();
+        }
 
+        //Imagen TODO: levantar las imagenes 
+        [HttpPost]
+        public ActionResult UploadImages(ImagenViewModel uploadImages)
+        {
+            if (uploadImages.Image.Count() ==0)
+            {
+                return RedirectToAction("BrowseImages");
+            }
 
-
+            foreach (var image in uploadImages.Image)
+            {
+                if (image != null)
+                {
+                    if (image.ContentLength > 0)
+                    {
+                        byte[] imageData = null;
+                        using (var binaryReader = new BinaryReader(image.InputStream))
+                        {
+                            imageData = binaryReader.ReadBytes(image.ContentLength);
+                        }
+                        var headerImage = new ImagenesJuego
+                        {
+                            Imagen = imageData,
+                            JuegoId = uploadImages.JuegoId,
+                            ImageName = image.FileName,
+                            IsActive = true
+                        };
+                        try
+                        {
+                            _context.ImagenesJuegos.Add(headerImage);
+                            _context.SaveChanges();
+                        }
+                        catch (Exception e)
+                        {
+                            throw e;
+                        }
+                        
+                       
+                    }
+                }
+                else {
+                    return RedirectToAction("UploadImages");
+                }
+            }
+            return RedirectToAction("Index");
+        }
 
     }
 }

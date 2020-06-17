@@ -72,6 +72,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EGamersContext.cs" />
+    <Compile Include="Mappings\CategoriaMapping.cs" />
+    <Compile Include="Mappings\ImagenJuegoMapping.cs" />
+    <Compile Include="Mappings\JuegoMapping.cs" />
     <Compile Include="Migrations\202006131856247_Migracion Inicial.cs" />
     <Compile Include="Migrations\202006131856247_Migracion Inicial.designer.cs">
       <DependentUpon>202006131856247_Migracion Inicial.cs</DependentUpon>
@@ -96,8 +99,25 @@
     <Compile Include="Migrations\202006152309458_Modificacion de la tabla juegos,primary key,max length y unique.designer.cs">
       <DependentUpon>202006152309458_Modificacion de la tabla juegos,primary key,max length y unique.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202006162305197_Modifico_Juego_maxlengh_ descripcion_Relacion_Categoria.cs" />
+    <Compile Include="Migrations\202006162305197_Modifico_Juego_maxlengh_ descripcion_Relacion_Categoria.designer.cs">
+      <DependentUpon>202006162305197_Modifico_Juego_maxlengh_ descripcion_Relacion_Categoria.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202006170006158_Agrego_TablaImagenes_para_Juegos.cs" />
+    <Compile Include="Migrations\202006170006158_Agrego_TablaImagenes_para_Juegos.designer.cs">
+      <DependentUpon>202006170006158_Agrego_TablaImagenes_para_Juegos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202006170037172_Agrego_campos_Tabla_imagenesJuego.cs" />
+    <Compile Include="Migrations\202006170037172_Agrego_campos_Tabla_imagenesJuego.designer.cs">
+      <DependentUpon>202006170037172_Agrego_campos_Tabla_imagenesJuego.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202006170116029_config-dbset.cs" />
+    <Compile Include="Migrations\202006170116029_config-dbset.designer.cs">
+      <DependentUpon>202006170116029_config-dbset.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Categoria.cs" />
+    <Compile Include="Models\ImagenesJuego.cs" />
     <Compile Include="Models\Juego.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -123,6 +143,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202006152309458_Modificacion de la tabla juegos,primary key,max length y unique.resx">
       <DependentUpon>202006152309458_Modificacion de la tabla juegos,primary key,max length y unique.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006162305197_Modifico_Juego_maxlengh_ descripcion_Relacion_Categoria.resx">
+      <DependentUpon>202006162305197_Modifico_Juego_maxlengh_ descripcion_Relacion_Categoria.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006170006158_Agrego_TablaImagenes_para_Juegos.resx">
+      <DependentUpon>202006170006158_Agrego_TablaImagenes_para_Juegos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006170037172_Agrego_campos_Tabla_imagenesJuego.resx">
+      <DependentUpon>202006170037172_Agrego_campos_Tabla_imagenesJuego.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006170116029_config-dbset.resx">
+      <DependentUpon>202006170116029_config-dbset.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />

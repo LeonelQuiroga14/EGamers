@@ -9,6 +9,10 @@ namespace Gamers.DataAccess.Models
 {
     public class Juego
     {
+        public Juego()
+        {
+            Imagenes = new List<ImagenesJuego>();
+        }
         public int Id { get; set; }
         public string Nombre { get; set; }
         public string Descripcion { get; set; }
@@ -19,6 +23,8 @@ namespace Gamers.DataAccess.Models
         public DateTime FechaLanzamiento { get; set; }
         public double Precio { get; set; }
         public int CategoriaId { get; set; }
-        public Categoria categoria { get; set; }
+        public Categoria Categoria { get; set; }
+
+        public virtual List<ImagenesJuego> Imagenes { get; set; }
     }
 }
