@@ -1,0 +1,103 @@
+﻿@model Gamers.Web.Models.JuegoViewModel
+
+@{
+    ViewBag.Title = "Detalle";
+}
+@section Links{
+    <link href="~/Content/Lib/lightbox/css/lightbox.css" rel="stylesheet" />
+}
+<div class="container-fluid">
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header  bg-secondary">
+                    <h1 class="card-title display-4">
+                       
+                        @Html.DisplayFor(model => model.Nombre)
+                    </h1>
+                </div>
+                <div class="card-body " 
+                    <dl class="dl-horizontal">
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Descripcion)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.Descripcion)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Requerimientos)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.Requerimientos)
+                        </dd>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.FechaLanzamiento)
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.FechaLanzamiento)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Precio)
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.Precio)
+                        </dd>
+                        <dt>
+                    </dl>
+                </div>
+                <div>
+                    <div class="card-footer  bg-dark">
+                        <div class="row">
+                            <div class="col-md-3">
+
+                            </div>
+                            <div class="col-md-3">
+                              
+                            </div>
+                            <div class="col-md-6">
+                                <p>
+                                    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "btn btn-outline-warning" }) |
+                                    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-outline-info" })
+                                </p>
+                                    </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card text-center text-danger">
+                <div class="card-header bg-dark">
+                  Imagenes
+                </div>
+                <div class="card-body">
+                    <div class="container">
+                        <section class="row">
+                            @foreach (var item in Model.Images)
+                            {
+                                string imageBase64 = Convert.ToBase64String(item.Imagen);
+                                string imageSrc = string.Format($"data:image/png;base64,{imageBase64}");
+                                <article class="col-xs-12 col-md-6 col-lg-4">
+                                    <a href="@imageSrc" class="example-image-link ml-2" data-title="@Model.Nombre" data-lightbox="Juegos">
+                                        <img alt="Small lighthouse at bottom with ocean behind" class="img-thumbnail" src="@imageSrc" />
+                                    </a>
+                                </article>                 
+                            }
+                        </section>
+                    </div>
+                </div>
+                <div class="card-footer  bg-dark text-muted">
+                    <h5 class=" text-danger">@Model.Descripcion</h5> 
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <script src="~/Content/Lib/lightbox/js/lightbox.min.js"></script>
+}

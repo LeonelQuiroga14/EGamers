@@ -117,6 +117,7 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Categoria.cs" />
+    <Compile Include="Models\Cliente.cs" />
     <Compile Include="Models\ImagenesJuego.cs" />
     <Compile Include="Models\Juego.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

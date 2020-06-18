@@ -38,41 +38,41 @@ namespace Gamers.Web.Controllers
             return View(cliente);
         }
         [HttpPost]
-        public ActionResult Editar(Cliente cliente)
+        public ActionResult Editar(ClienteViewModel cliente)
         {
             return RedirectToAction("Index");
         }
 
-        private List<Cliente> GetClientes() 
+        private List<ClienteViewModel> GetClientes() 
         {
 
-            var listaClientes = new List<Cliente>()
+            var listaClientes = new List<ClienteViewModel>()
             {
-                new Cliente(){
+                new ClienteViewModel(){
                 Id=1,
                 Nombre="Leonel",
                 Apellido="Quiroga",
                 Dni="3878913",
                 Genero="M"
-                }, new Cliente(){
+                }, new ClienteViewModel(){
                 Id=2,
                 Nombre="Ignacio",
                 Apellido="Mendia",
                 Dni="233234",
                 Genero="M"
-                }, new Cliente(){
+                }, new ClienteViewModel(){
                 Id=3,
                 Nombre="Alguno ",
                 Apellido="Deporai",
                 Dni="3878913www",
                 Genero="M"
-                }, new Cliente(){
+                }, new ClienteViewModel(){
                 Id=4,
                 Nombre="Gimena",
                 Apellido="Rojas",
                 Dni="3878913",
                 Genero="F"
-                }, new Cliente(){
+                }, new ClienteViewModel(){
                 Id=5,
                 Nombre="Susana",
                 Apellido="Oria",

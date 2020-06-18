@@ -1,5 +1,6 @@
 ﻿using Gamers.DataAccess;
 using Gamers.DataAccess.Models;
+using Gamers.Web.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +20,8 @@ namespace Gamers.Web.Controllers
         public ActionResult Index()
         {
             var lista = _context.Categoria.ToList();
-            return View(lista);
+            var listafinal = lista.Select(x => new CategoriaViewModel(x)).ToList();
+            return View(listafinal);
         }
 
         public ActionResult Alta()
@@ -28,7 +30,7 @@ namespace Gamers.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult Alta(Categoria categoria)
+        public ActionResult Alta(CategoriaViewModel categoria)
         {
             if (!ModelState.IsValid)
             {
@@ -37,7 +39,7 @@ namespace Gamers.Web.Controllers
             }
             try
             {                  
-                _context.Categoria.Add(categoria);
+                _context.Categoria.Add(categoria.ToEntity());
                 _context.SaveChanges();
             }
             catch (Exception ex)
@@ -98,7 +100,8 @@ namespace Gamers.Web.Controllers
             {
                 return HttpNotFound();
             }
-            return View(Categoria);
+            var categoriaVm = new CategoriaViewModel(Categoria);
+            return View(categoriaVm);
         }
 
         [HttpGet]
@@ -113,11 +116,12 @@ namespace Gamers.Web.Controllers
             {
                 return HttpNotFound();
             }
-            return View(Categoria);
+            var categoriaVm = new CategoriaViewModel(Categoria);
+            return View(categoriaVm);
         }
 
         [HttpPost]
-        public ActionResult Modificar(Categoria categoria)
+        public ActionResult Modificar(CategoriaViewModel categoria)
         {
             if (!ModelState.IsValid)
             {
@@ -125,7 +129,12 @@ namespace Gamers.Web.Controllers
             }
             try
             {
-                _context.Entry(categoria).State = System.Data.Entity.EntityState.Modified;
+                var categoriaBD = _context.Categoria.Find(categoria.Id);
+                if (categoriaBD == null)
+                { 
+                
+                }
+                _context.Entry(categoriaBD).CurrentValues.SetValues(categoria);
                 _context.SaveChanges();
             }
             catch (Exception ex)
