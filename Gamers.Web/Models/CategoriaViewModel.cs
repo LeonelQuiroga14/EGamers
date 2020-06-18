@@ -14,8 +14,9 @@ namespace Gamers.Web.Models
 
         [Required(ErrorMessage = "El campo es obligatorio.")]
         [StringLength(50, ErrorMessage = "El campo debe contener entre {2} y {1} caracteres.", MinimumLength = 3)]
-        [Display(Name = "Nombre de categoria")]
+        [Display(Name = "Genero")]
         public string Descripcion { get; set; }
+        [Display(Name = "Edadd Min.")]
         public int? EdadMinima { get; set; }
 
         public virtual List<JuegoViewModel> Juegos { get; set; }

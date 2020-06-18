@@ -134,7 +134,6 @@ namespace Gamers.Web.Controllers
                 { 
                 
                 }
-                // _context.Entry(categoria).State = System.Data.Entity.EntityState.Modified; TODO: ver esto
                 _context.Entry(categoriaBD).CurrentValues.SetValues(categoria);
                 _context.SaveChanges();
             }

@@ -36,26 +36,7 @@ namespace Gamers.Web.Controllers
 
         public ActionResult Alta()
         {
-
-            //List<TableViewModel> Lista =
-            //    (from c in _context.Categoria
-            //     select new TableViewModel
-            //     {
-            //         Id = c.Id,
-            //         Nombre = c.Descripcion
-            //     }).ToList();
-
-            //List<SelectListItem> item = Lista.ConvertAll(t =>
-            //{
-            //    return new SelectListItem()
-            //    {
-            //        Text = t.Nombre.ToString(),
-            //        Value = t.Id.ToString(),
-            //        Selected = false
-            //    };
-            //});
             ViewBag.CategoriaId = new SelectList(CombosHelpers.GetCategorias(),"Id", "Descripcion");
-            
 
             return View();
         }
@@ -137,43 +118,31 @@ namespace Gamers.Web.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpGet]//TODO: ver porque no toma por default la categoriaId y la fecha
         public ActionResult Modificacion(int? id)
         {
-            //List<TableViewModel> Lista =
-            //    (from c in _context.Categoria
-            //     select new TableViewModel
-            //     {
-            //         Id = c.Id,
-            //         Nombre = c.Descripcion
-            //     }).ToList();
-
-            //List<SelectListItem> item = Lista.ConvertAll(t =>
-            //{
-            //    return new SelectListItem()
-            //    {
-            //        Text = t.Nombre.ToString(),
-            //        Value = t.Id.ToString(),
-            //        Selected = false
-            //    };
-            //});
-
-            //ViewBag.item = item;
-            ViewBag.item = new SelectList(CombosHelpers.GetCategorias(), "Id", "Descripcion");
+            ViewBag.CategoriaId = new SelectList(CombosHelpers.GetCategorias(), "Id", "Descripcion");
 
             if (id==null)
             {
                 return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
             }
             var Juego = _context.Juego.Find(id);
+            var categoria = _context.Categoria.Find(Juego.CategoriaId);
+            var imagenes = _context.ImagenesJuegos.Where(x => x.JuegoId == Juego.Id).ToList();
+
             if (Juego == null)
             {
                 return HttpNotFound("No se encontró el juego a modificar");
             }
             var juegoVm = new JuegoViewModel(Juego);
+            juegoVm.Categoria = new CategoriaViewModel(categoria);
+            juegoVm.Images = imagenes.Select(x => new ImagenJuegoViewModel(x)).ToList();
             return View(juegoVm);
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Modificacion(JuegoViewModel juego)
         {
             if (!ModelState.IsValid)
@@ -188,10 +157,18 @@ namespace Gamers.Web.Controllers
 
                 }              
                 _context.Entry(JuegoBD).CurrentValues.SetValues(juego.ToEntity());
-                //_context.Entry(juego).State = System.Data.Entity.EntityState.Modified;
+                List<ImagenesJuego> imagenes = GetImagesFromFilesRequest(juego.Image).Select(x => new ImagenesJuego()
+                {
+                    JuegoId=juego.Id,
+                    Imagen = x.Imagen,
+                    ImageName = x.ImageName,
+                    IsActive = x.IsActive
+                }).ToList();
+
+                _context.ImagenesJuegos.AddRange(imagenes);             
                 _context.SaveChanges();
             }
-            catch (Exception )
+            catch (Exception ex)
             {               
                 return View(juego);
             }
@@ -199,12 +176,31 @@ namespace Gamers.Web.Controllers
         }
 
 
-        [HttpGet]
-        public ActionResult UploadImages()
+        [HttpPost]
+        public ActionResult EliminarImagen(int ImagenId)
         {
-            var juegos = new SelectList(CombosHelpers.GetJuegos(), "Id", "Nombre");
-            ViewBag.JuegoId = juegos;
-            return View();
+            if (ImagenId == 0)
+            {
+                return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
+            }
+            var image = _context.ImagenesJuegos.Find(ImagenId);
+            if (image == null)
+            {
+                return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
+
+            }
+            try
+            {
+                _context.ImagenesJuegos.Remove(image);
+                _context.SaveChanges();
+            }
+            catch (Exception)
+            {
+
+                return new HttpStatusCodeResult(System.Net.HttpStatusCode.InternalServerError,"Ha ocurrido un error");
+            }
+
+            return new HttpStatusCodeResult(System.Net.HttpStatusCode.OK, "Se ha eliminado la imagen");
         }
 
 
@@ -241,56 +237,31 @@ namespace Gamers.Web.Controllers
 
         }
 
+        public ActionResult GetImagen(int Id)
+        {
 
-        #region No Va
+            return View();
+        }
 
-        //Imagen TODO: levantar las imagenes 
-        //[HttpPost]
-        //public ActionResult UploadImages(ImagenViewModel uploadImages)
-        //{
-        //    if (uploadImages.Image.Count() ==0)
-        //    {
-        //        return RedirectToAction("BrowseImages");
-        //    }
+        [HttpGet]
+        public ActionResult Detalle(int Id) 
+        {
+            if (Id == 0)
+            {
+                return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
+            }
+            var juego = _context.Juego.Find(Id);
+            var images = _context.ImagenesJuegos.Where(x => x.JuegoId == juego.Id).ToList();
+            if (juego == null)
+            {
+                return HttpNotFound();
+            }
+            var juegoVm = new JuegoViewModel(juego);
+            juegoVm.Images = images.Select(x => new ImagenJuegoViewModel(x)).ToList();
 
-        //    foreach (var image in uploadImages.Image)
-        //    {
-        //        if (image != null)
-        //        {
-        //            if (image.ContentLength > 0)
-        //            {
-        //                byte[] imageData = null;
-        //                using (var binaryReader = new BinaryReader(image.InputStream))
-        //                {
-        //                    imageData = binaryReader.ReadBytes(image.ContentLength);
-        //                }
-        //                var headerImage = new ImagenesJuego
-        //                {
-        //                    Imagen = imageData,
-        //                    JuegoId = uploadImages.JuegoId,
-        //                    ImageName = image.FileName,
-        //                    IsActive = true
-        //                };
-        //                try
-        //                {
-        //                    _context.ImagenesJuegos.Add(headerImage);
-        //                    _context.SaveChanges();
-        //                }
-        //                catch (Exception e)
-        //                {
-        //                    throw e;
-        //                }
+            return View(juegoVm);
 
-
-        //            }
-        //        }
-        //        else {
-        //            return RedirectToAction("UploadImages");
-        //        }
-        //    }
-        //    return RedirectToAction("Index");
-        //}
-        #endregion
+        }
     }
 }
 
