@@ -141,6 +141,29 @@ namespace Gamers.Web.Controllers
             return View(juegoVm);
         }
 
+
+        public ActionResult Modificacion2(int? id)
+        {
+            ViewBag.CategoriaId = new SelectList(CombosHelpers.GetCategorias(), "Id", "Descripcion");
+
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
+            }
+            var Juego = _context.Juego.Find(id);
+            var categoria = _context.Categoria.Find(Juego.CategoriaId);
+            var imagenes = _context.ImagenesJuegos.Where(x => x.JuegoId == Juego.Id).ToList();
+
+            if (Juego == null)
+            {
+                return HttpNotFound("No se encontró el juego a modificar");
+            }
+            var juegoVm = new JuegoViewModel(Juego);
+            juegoVm.Categoria = new CategoriaViewModel(categoria);
+            juegoVm.Images = imagenes.Select(x => new ImagenJuegoViewModel(x)).ToList();
+            return View(juegoVm);
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Modificacion(JuegoViewModel juego)
