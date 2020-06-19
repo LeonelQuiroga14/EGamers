@@ -302,7 +302,6 @@
     <Content Include="Views\Juego\Baja.cshtml" />
     <Content Include="Views\Juego\Modificacion.cshtml" />
     <Content Include="Views\Juego\Detalle.cshtml" />
-    <Content Include="Views\Juego\Modificacion2.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
