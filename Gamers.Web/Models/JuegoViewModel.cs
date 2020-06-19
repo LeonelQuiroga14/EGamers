@@ -18,7 +18,7 @@ namespace Gamers.Web.Models
         public string Requerimientos { get; set; }
 
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-mm-dd}",ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}",ApplyFormatInEditMode = true)]
         [Display(Name = "Lanzamiento")]
         public DateTime FechaLanzamiento { get; set; }
         [Display(Name = "Precio")]
